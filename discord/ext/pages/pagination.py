@@ -393,6 +393,7 @@ class Paginator(discord.ui.View):
         author_check=True,
         disable_on_timeout=True,
         use_default_buttons=True,
+        use_styled_buttons=False,
         default_button_row: int = 0,
         loop_pages=False,
         custom_view: Optional[discord.ui.View] = None,
@@ -434,6 +435,7 @@ class Paginator(discord.ui.View):
         self.show_indicator = show_indicator
         self.disable_on_timeout = disable_on_timeout
         self.use_default_buttons = use_default_buttons
+        self.use_styled_buttons = use_styled_buttons
         self.default_button_row = default_button_row
         self.loop_pages = loop_pages
         self.custom_view: discord.ui.View = custom_view
@@ -443,8 +445,10 @@ class Paginator(discord.ui.View):
         if self.custom_buttons and not self.use_default_buttons:
             for button in custom_buttons:
                 self.add_button(button)
-        elif not self.custom_buttons and self.use_default_buttons:
+        elif not self.custom_buttons and not self.use_styled_buttons and self.use_default_buttons:
             self.add_default_buttons()
+        elif self.use_styled_buttons:
+            self.add_styled_buttons()
 
         if self.show_menu:
             self.add_menu()
