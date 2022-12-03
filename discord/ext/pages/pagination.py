@@ -1348,3 +1348,23 @@ class PaginatorMenu(discord.ui.Select):
                     trigger_on_display=page_group.trigger_on_display,
                     interaction=interaction,
                 )
+
+class ButtonTypes():
+    def __init__(
+        self,
+        first: Optional[str] = "<<<",
+        previous: Optional[str] = "<",
+        next: Optional[str] = ">",
+        last: Optional[str] = ">>>",
+        indicator: Optional[bool] = True,
+    ):
+        self.first = first
+        self.previous = previous
+        self.next = next
+        self.last = last
+        self.indicator = indicator
+    def text(self):
+        buttons = [PaginatorButton(button_type="first", label="First", style=discord.ButtonStyle.blurple), PaginatorButton(button_type="prev", label="Prev.", style=discord.ButtonStyle.secondary), PaginatorButton(button_type="next", label="Next", style=discord.ButtonStyle.secondary), PaginatorButton(button_type="last", label="Last", style=discord.ButtonStyle.blurple)]
+        if self.indicator == True:
+            buttons.append(PaginatorButton(button_type="indicator", disabled=True))
+        return buttons
