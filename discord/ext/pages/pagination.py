@@ -255,7 +255,9 @@ class PageGroup:
     use_default_buttons: :class:`bool`
         Whether to use the default buttons (i.e. ``first``, ``prev``, ``page_indicator``, ``next``, ``last``)
     use_styled_buttons: :class:`bool`
-        The same as ``use_default_buttons`` but uses emojis for labels
+        The same as ``use_default_buttons`` but uses emojis for labels, overwrites ``use_default_buttons`` when used.
+
+        .. versionadded:: 2.4
     default_button_row: :class:`int`
         The row where the default paginator buttons are displayed. Has no effect if custom buttons are used.
     loop_pages: :class:`bool`
@@ -340,6 +342,8 @@ class Paginator(discord.ui.View):
     use_default_buttons: :class:`bool`
         Whether to use the default buttons (i.e. ``first``, ``prev``, ``page_indicator``, ``next``, ``last``)
     use_styled_buttons: :class:`bool`
+        The same as ``use_default_buttons`` but uses emojis for labels, overwrites ``use_default_buttons`` when used.
+        .. versionadded:: 2.4
     default_button_row: :class:`int`
         The row where the default paginator buttons are displayed. Has no effect if custom buttons are used.
     loop_pages: :class:`bool`
@@ -445,7 +449,11 @@ class Paginator(discord.ui.View):
         if self.custom_buttons and not self.use_default_buttons:
             for button in custom_buttons:
                 self.add_button(button)
-        elif not self.custom_buttons and not self.use_styled_buttons and self.use_default_buttons:
+        elif (
+            not self.custom_buttons
+            and not self.use_styled_buttons
+            and self.use_default_buttons
+        ):
             self.add_default_buttons()
         elif self.use_styled_buttons:
             self.add_styled_buttons()
@@ -505,7 +513,8 @@ class Paginator(discord.ui.View):
         use_default_buttons: :class:`bool`
             Whether to use the default buttons (i.e. ``first``, ``prev``, ``page_indicator``, ``next``, ``last``)
         use_styled_buttons: :class:`bool`
-            The same as ``use_default_buttons`` but uses emojis for labels
+            The same as ``use_default_buttons`` but uses emojis for labels, overwrites ``use_default_buttons`` when used.
+            .. versionadded:: 2.4
         default_button_row: Optional[:class:`int`]
             The row where the default paginator buttons are displayed. Has no effect if custom buttons are used.
         loop_pages: :class:`bool`
@@ -792,6 +801,7 @@ class Paginator(discord.ui.View):
 
     def add_styled_buttons(self):
         """Adds the default paginator buttons like ``.add_default_Buttons`` but uses emojis for labels
+        .. versionadded:: 2.4
         """
         default_buttons = [
             PaginatorButton(
